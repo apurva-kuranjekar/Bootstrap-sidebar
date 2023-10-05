@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import AddForm from './component/AddForm.js';
+import AddItemForm from './component/AddItemForm';
 
 // Sidebar Component
 function Sidebar({ onCategoryClick }) {
@@ -21,11 +23,31 @@ function Sidebar({ onCategoryClick }) {
 }
 
 // Dashboard Component
-function Dashboard() {
+// Dashboard Component
+function Dashboard({ onAddButtonClick }) {
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const handleAddItemClick = () => {
+    setShowAddForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowAddForm(false);
+  };
+
   return (
     <div className="col py-3">
-      <h2>Dashboard</h2>
-      {/* Dashboard content goes here */}
+      {showAddForm ? (
+        <AddItemForm onClose={handleCloseForm} />
+      ) : (
+        <>
+          <button className="btn btn-primary mt-3 mr-3 float-right" onClick={handleAddItemClick}>
+            ADD
+          </button>
+          <h2>Dashboard</h2>
+          {/* Dashboard content goes here */}
+        </>
+      )}
     </div>
   );
 }
@@ -36,6 +58,10 @@ function CategoryTable() {
   const data = [
     { id: 1, name: 'Item 1', price: 10 },
     { id: 2, name: 'Item 2', price: 15 },
+    { id: 3, name: 'Item 3', price: 20 },
+    { id: 4, name: 'Item 4', price: 25 },
+    { id: 5, name: 'Item 5', price: 30 },
+    { id: 6, name: 'Item 6', price: 35 },
     // Add more data
   ];
 
