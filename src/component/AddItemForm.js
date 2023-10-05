@@ -10,8 +10,9 @@ function AddItemForm({ onClose, onAddItem }) {
     // Perform any necessary form validation
     // Call a function to add the item with itemName and itemPrice
     onAddItem(itemName, itemPrice);
-    // Close the form
-    onClose();
+    // Clear the form inputs
+    setItemName('');
+    setItemPrice('');
   };
 
   return (

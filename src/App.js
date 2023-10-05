@@ -22,7 +22,7 @@ function Sidebar({ onCategoryClick }) {
   );
 }
 
-// Dashboard Component
+
 // Dashboard Component
 function Dashboard({ onAddButtonClick }) {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -54,6 +54,15 @@ function Dashboard({ onAddButtonClick }) {
 
 // CategoryTable Component
 function CategoryTable() {
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const handleAddItemClick = () => {
+    setShowAddForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowAddForm(false);
+  };
   // Example data for the category table
   const data = [
     { id: 1, name: 'Item 1', price: 10 },
@@ -67,28 +76,39 @@ function CategoryTable() {
 
   return (
     <div className="col py-3">
-      <h2>Category Table</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
+    {showAddForm ? (
+      <AddItemForm onClose={handleCloseForm} />
+    ) : (
+      <>
+        <button className="btn btn-primary mt-3 mr-3 float-right" onClick={handleAddItemClick}>
+          ADD
+        </button>
+        <br/>
+        <h2>Category Table</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    )}
+  </div>
+);
 }
+
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(null);
